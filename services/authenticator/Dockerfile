@@ -9,7 +9,7 @@ COPY package.json .
 COPY yarn.lock .
 
 RUN yarn global add forever && \
-    yarn workspace authenticator install --production && \
+    yarn workspace authenticator install --production --network-timeout 1000000 && \
     yarn cache clean
 
 CMD forever services/authenticator/src/index.js

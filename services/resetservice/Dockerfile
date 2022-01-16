@@ -8,7 +8,7 @@ COPY package.json .
 COPY yarn.lock .
 
 RUN yarn global add forever && \
-    yarn workspace resetservice install --production && \
+    yarn workspace resetservice install --production --network-timeout 1000000 && \
     yarn cache clean
 
 CMD forever services/resetservice/src/index.js

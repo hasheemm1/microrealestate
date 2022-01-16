@@ -17,7 +17,7 @@ COPY package.json .
 COPY yarn.lock .
 
 RUN yarn global add forever && \
-    yarn workspace api install --production && \
+    yarn workspace api install --production --network-timeout 1000000 && \
     yarn cache clean
 
 CMD forever services/api/src/index.js

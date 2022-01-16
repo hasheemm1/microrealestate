@@ -13,6 +13,6 @@ COPY yarn.lock .
 COPY services/common services/common
 COPY services/api services/api
 
-RUN yarn workspace api install
+RUN yarn workspace api install --network-timeout 1000000
 
 CMD yarn workspace api run dev

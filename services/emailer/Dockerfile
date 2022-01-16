@@ -9,7 +9,7 @@ COPY package.json .
 COPY yarn.lock .
 
 RUN yarn global add forever && \
-    yarn workspace emailer install --production && \
+    yarn workspace emailer install --production --network-timeout 1000000 && \
     yarn cache clean
 
 CMD forever services/emailer/src/index.js

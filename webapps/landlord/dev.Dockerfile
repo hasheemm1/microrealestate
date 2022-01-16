@@ -20,6 +20,7 @@ ENV BASE_PATH $BASE_PATH
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN yarn workspace landlord install
+RUN yarn workspace landlord install --network-timeout 1000000
 
 CMD yarn workspace landlord run dev -p $PORT
+
