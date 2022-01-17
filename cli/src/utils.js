@@ -115,3 +115,10 @@ module.exports = {
   loadEnv,
   runCompose,
 };
+
+/* 
+//github action without this cli
+
+docker-compose --env-file aws.env -f docker-compose.microservices.base.yml -f docker-compose.microservices.prod.yml build up
+
+*/
