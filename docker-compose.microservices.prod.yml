@@ -12,7 +12,8 @@ services:
   #     #   syslog-facility: 'daemon'
   #   depends_on:
   #     - kibana
-  redis: null
+  redis: 
+    image: public.ecr.aws/ubuntu/redis:latest
     ###############################################################################
     # Mongo
     ###############################################################################
@@ -26,7 +27,7 @@ services:
     #   depends_on:
     #     - kibana
   mongo:
-    image: $ECR_REGISTRY/$ECR_REPOSITORY:mongo3.6
+    image: public.ecr.aws/docker/library/mongo:3.6.21
   ###############################################################################
 
   # NGINX
@@ -51,7 +52,7 @@ services:
 
   #     - kibana
   nginx:
-    image: $ECR_REGISTRY/$ECR_REPOSITORY:nginx1.17
+    image: public.ecr.aws/nginx/nginx:latest
   ###############################################################################
 
   # Authenticator
