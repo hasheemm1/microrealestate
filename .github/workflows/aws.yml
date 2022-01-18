@@ -61,19 +61,7 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
-
-    - name: Launch Mongo, Reddis and Nginx
-      id: launch-images
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        docker-compose --env-file aws.env -f docker-compose.microservices.base.yml -f docker-compose.microservices.prod.yml up -d mongo
-        docker-compose --env-file aws.env -f docker-compose.microservices.base.yml -f docker-compose.microservices.prod.yml up -d redis
-        docker-compose --env-file aws.env -f docker-compose.microservices.base.yml -f docker-compose.microservices.prod.yml up -d nginx
       
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       env:
@@ -85,7 +73,9 @@ jobs:
         # be deployed to ECS.
         #docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-       
+        docker-compose --env-file aws.env -f docker-compose.microservices.base.yml -f docker-compose.microservices.prod.yml up -d mongo
+        docker-compose --env-file aws.env -f docker-compose.microservices.base.yml -f docker-compose.microservices.prod.yml up -d redis
+        docker-compose --env-file aws.env -f docker-compose.microservices.base.yml -f docker-compose.microservices.prod.yml up -d nginx
         docker-compose --env-file aws.env -f docker-compose.microservices.base.yml -f docker-compose.microservices.prod.yml build --no-cache --force-rm
       # docker-compose --env-file aws.env -f docker-compose.microservices.base.yml -f docker-compose.microservices.prod.yml up -d --force-recreate --remove-orphans
         docker-compose --env-file aws.env -f docker-compose.microservices.base.yml -f docker-compose.microservices.prod.yml push
