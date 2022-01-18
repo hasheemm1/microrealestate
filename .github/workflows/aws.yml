@@ -68,13 +68,12 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
-       
         docker-compose --env-file aws.env -f docker-compose.microservices.base.yml -f docker-compose.microservices.prod.yml up -d mongo
         docker-compose --env-file aws.env -f docker-compose.microservices.base.yml -f docker-compose.microservices.prod.yml up -d redis
         docker-compose --env-file aws.env -f docker-compose.microservices.base.yml -f docker-compose.microservices.prod.yml up -d nginx
       
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-        
+
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       env:
