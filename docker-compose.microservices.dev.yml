@@ -4,18 +4,21 @@ services:
   # Mongo
   ###############################################################################
   mongo:
+    image: mongo:3.6
     ports:
       - "$MONGO_PORT:$MONGO_PORT"
   ###############################################################################
   # NGINX
   ###############################################################################
   nginx:
+  image: nginx:1.17
     volumes:
       - ./config/nginx/etc/conf.d/dev.conf:/etc/nginx/conf.d/default.template
   ###############################################################################
   # Authenticator
   ###############################################################################
   authenticator:
+    image: mre/authenticator:latest
     build:
       context: .
       dockerfile: services/authenticator/dev.Dockerfile
@@ -30,6 +33,7 @@ services:
   # PDFGenerator
   ###############################################################################
   pdfgenerator:
+    image: mre/pdfgenerator:latest
     build:
       context: .
       dockerfile: services/pdfgenerator/dev.Dockerfile
@@ -44,6 +48,7 @@ services:
   # Emailer
   ###############################################################################
   emailer:
+    image: mre/emailer:latest
     build:
       context: .
       dockerfile: services/emailer/dev.Dockerfile
@@ -58,6 +63,7 @@ services:
   # api
   ###############################################################################
   api:
+    image: mre/api:latest
     build:
       context: .
       dockerfile: services/api/dev.Dockerfile
@@ -72,6 +78,7 @@ services:
   # Frontend
   ###############################################################################
   frontend:
+    image: mre/frontend:latest
     build:
       context: .
       dockerfile: webapps/landlord/dev.Dockerfile
