@@ -58,7 +58,7 @@ services:
 
   ###############################################################################
   authenticator:
-    image: $ECR_REGISTRY/$ECR_REPOSITORY/authenticator:$IMAGE_TAG
+    image: $ECR_REGISTRY/$ECR_REPOSITORY:authenticator$IMAGE_TAG
     build:
       context: .
       dockerfile: services/authenticator/Dockerfile
@@ -73,7 +73,7 @@ services:
     # PDFGenerator
     ###############################################################################
   pdfgenerator:
-    image: $ECR_REGISTRY/$ECR_REPOSITORY/pdfgenerator:$IMAGE_TAG
+    image: $ECR_REGISTRY/$ECR_REPOSITORY:pdfgenerator$IMAGE_TAG
     build:
       context: .
       dockerfile: services/pdfgenerator/Dockerfile
@@ -88,7 +88,7 @@ services:
     # Emailer
     ###############################################################################
   emailer:
-    image: $ECR_REGISTRY/$ECR_REPOSITORY/emailer:$IMAGE_TAG
+    image: $ECR_REGISTRY/$ECR_REPOSITORY:emailer$IMAGE_TAG
     build:
       context: .
       dockerfile: services/emailer/Dockerfile
@@ -103,7 +103,7 @@ services:
     # api
     ###############################################################################
   api:
-    image: $ECR_REGISTRY/$ECR_REPOSITORY/api:$IMAGE_TAG
+    image: $ECR_REGISTRY/$ECR_REPOSITORY:api$IMAGE_TAG
     build:
       context: .
       dockerfile: services/api/Dockerfile
@@ -118,7 +118,7 @@ services:
     # Frontend
     ###############################################################################
   frontend:
-    image: $ECR_REGISTRY/$ECR_REPOSITORY/frontend:$IMAGE_TAG
+    image: $ECR_REGISTRY/$ECR_REPOSITORY:frontend$IMAGE_TAG
     build:
       context: .
       dockerfile: webapps/landlord/Dockerfile

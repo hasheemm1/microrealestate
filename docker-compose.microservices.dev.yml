@@ -12,7 +12,7 @@ services:
   ###############################################################################
   nginx:
   image: nginx:1.17
-    volumes:
+  volumes:
       - ./config/nginx/etc/conf.d/dev.conf:/etc/nginx/conf.d/default.template
   ###############################################################################
   # Authenticator
