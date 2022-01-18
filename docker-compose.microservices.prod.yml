@@ -61,7 +61,7 @@ services:
   ###############################################################################
   pdfgenerator:
     build:
-        image: $ECR_REGISTRY/$ECR_REPOSITORY/pdfgenerator:$IMAGE_TAG
+      image: $ECR_REGISTRY/$ECR_REPOSITORY/pdfgenerator:$IMAGE_TAG
       context: .
       dockerfile: services/pdfgenerator/Dockerfile
     # logging:
