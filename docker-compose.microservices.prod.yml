@@ -12,41 +12,54 @@ services:
   #     #   syslog-facility: 'daemon'
   #   depends_on:
   #     - kibana
-  redis:
-  ###############################################################################
-  # Mongo
-  ###############################################################################
-  # mongo:
-  #   logging:
-  #     driver: 'syslog'
-  #     options:
-  #       syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
-  #       tag: '{{.Name}}/{{.ID}}'
-  #     #   syslog-facility: 'daemon'
-  #   depends_on:
-  #     - kibana
+  redis: null
+    ###############################################################################
+    # Mongo
+    ###############################################################################
+    # mongo:
+    #   logging:
+    #     driver: 'syslog'
+    #     options:
+    #       syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
+    #       tag: '{{.Name}}/{{.ID}}'
+    #     #   syslog-facility: 'daemon'
+    #   depends_on:
+    #     - kibana
   mongo:
     image: $ECR_REGISTRY/$ECR_REPOSITORY:mongo3.6
   ###############################################################################
+
   # NGINX
+
   ###############################################################################
+
   # nginx:
+
   #   logging:
+
   #     driver: 'syslog'
+
   #     options:
+
   #       syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
+
   #       tag: '{{.Name}}/{{.ID}}'
+
   #     #   syslog-facility: 'daemon'
+
   #   depends_on:
+
   #     - kibana
   nginx:
     image: $ECR_REGISTRY/$ECR_REPOSITORY:nginx1.17
   ###############################################################################
+
   # Authenticator
+
   ###############################################################################
   authenticator:
+    image: $ECR_REGISTRY/$ECR_REPOSITORY/authenticator:$IMAGE_TAG
     build:
-      image: $ECR_REGISTRY/$ECR_REPOSITORY/authenticator:$IMAGE_TAG
       context: .
       dockerfile: services/authenticator/Dockerfile
     # logging:
@@ -56,12 +69,12 @@ services:
     #     tag: '{{.Name}}/{{.ID}}'
     # depends_on:
     #   - kibana
-  ###############################################################################
-  # PDFGenerator
-  ###############################################################################
+    ###############################################################################
+    # PDFGenerator
+    ###############################################################################
   pdfgenerator:
+    image: $ECR_REGISTRY/$ECR_REPOSITORY/pdfgenerator:$IMAGE_TAG
     build:
-      image: $ECR_REGISTRY/$ECR_REPOSITORY/pdfgenerator:$IMAGE_TAG
       context: .
       dockerfile: services/pdfgenerator/Dockerfile
     # logging:
@@ -71,12 +84,12 @@ services:
     #     tag: '{{.Name}}/{{.ID}}'
     # depends_on:
     #   - kibana
-  ###############################################################################
-  # Emailer
-  ###############################################################################
+    ###############################################################################
+    # Emailer
+    ###############################################################################
   emailer:
+    image: $ECR_REGISTRY/$ECR_REPOSITORY/emailer:$IMAGE_TAG
     build:
-      image: $ECR_REGISTRY/$ECR_REPOSITORY/emailer:$IMAGE_TAG
       context: .
       dockerfile: services/emailer/Dockerfile
     # logging:
@@ -86,12 +99,12 @@ services:
     #     tag: '{{.Name}}/{{.ID}}'
     # depends_on:
     #   - kibana
-  ###############################################################################
-  # api
-  ###############################################################################
+    ###############################################################################
+    # api
+    ###############################################################################
   api:
+    image: $ECR_REGISTRY/$ECR_REPOSITORY/api:$IMAGE_TAG
     build:
-      image: $ECR_REGISTRY/$ECR_REPOSITORY/api:$IMAGE_TAG
       context: .
       dockerfile: services/api/Dockerfile
     # logging:
@@ -101,12 +114,12 @@ services:
     #     tag: '{{.Name}}/{{.ID}}'
     # depends_on:
     #   - kibana
-  ###############################################################################
-  # Frontend
-  ###############################################################################
+    ###############################################################################
+    # Frontend
+    ###############################################################################
   frontend:
+    image: $ECR_REGISTRY/$ECR_REPOSITORY/frontend:$IMAGE_TAG
     build:
-      image: $ECR_REGISTRY/$ECR_REPOSITORY/frontend:$IMAGE_TAG
       context: .
       dockerfile: webapps/landlord/Dockerfile
     # logging:
