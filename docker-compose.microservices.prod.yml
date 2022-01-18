@@ -12,6 +12,7 @@ services:
   #     #   syslog-facility: 'daemon'
   #   depends_on:
   #     - kibana
+  redis:
   ###############################################################################
   # Mongo
   ###############################################################################
@@ -24,6 +25,8 @@ services:
   #     #   syslog-facility: 'daemon'
   #   depends_on:
   #     - kibana
+  mongo:
+    image: $ECR_REGISTRY/$ECR_REPOSITORY:mongo3.6
   ###############################################################################
   # NGINX
   ###############################################################################
@@ -36,11 +39,14 @@ services:
   #     #   syslog-facility: 'daemon'
   #   depends_on:
   #     - kibana
+  nginx:
+    image: $ECR_REGISTRY/$ECR_REPOSITORY:nginx1.17
   ###############################################################################
   # Authenticator
   ###############################################################################
   authenticator:
     build:
+      image: $ECR_REGISTRY/$ECR_REPOSITORY/authenticator:$IMAGE_TAG
       context: .
       dockerfile: services/authenticator/Dockerfile
     # logging:
@@ -55,6 +61,7 @@ services:
   ###############################################################################
   pdfgenerator:
     build:
+        image: $ECR_REGISTRY/$ECR_REPOSITORY/pdfgenerator:$IMAGE_TAG
       context: .
       dockerfile: services/pdfgenerator/Dockerfile
     # logging:
@@ -69,6 +76,7 @@ services:
   ###############################################################################
   emailer:
     build:
+      image: $ECR_REGISTRY/$ECR_REPOSITORY/emailer:$IMAGE_TAG
       context: .
       dockerfile: services/emailer/Dockerfile
     # logging:
@@ -83,6 +91,7 @@ services:
   ###############################################################################
   api:
     build:
+      image: $ECR_REGISTRY/$ECR_REPOSITORY/api:$IMAGE_TAG
       context: .
       dockerfile: services/api/Dockerfile
     # logging:
@@ -97,6 +106,7 @@ services:
   ###############################################################################
   frontend:
     build:
+      image: $ECR_REGISTRY/$ECR_REPOSITORY/frontend:$IMAGE_TAG
       context: .
       dockerfile: webapps/landlord/Dockerfile
     # logging:
