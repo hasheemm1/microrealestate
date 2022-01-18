@@ -74,7 +74,7 @@ jobs:
         #docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         
-        docker-compose --env-file aws.env -f docker-compose.microservices.base.yml -f docker-compose.microservices.prod.yml build
+        docker-compose --env-file aws.env -f docker-compose.microservices.base.yml -f docker-compose.microservices.prod.yml build up
         
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
