@@ -31,8 +31,9 @@ const loadEnv = (wd, runMode) => {
 const runCommand = async (cmd, parameters = [], options = {}, waitLog = '') => {
   let spinner;
   if (waitLog) {
-    spinner = new Spinner(waitLog);
-    spinner.start();
+   // spinner = new Spinner(waitLog);
+    //spinner.start();
+    console.log(chalk.yellow(waitLog));
   }
   return new Promise((resolve, reject) => {
     const errors = [];

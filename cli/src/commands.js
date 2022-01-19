@@ -44,7 +44,21 @@ const build = async () => {
     console.log(chalk.red(error));
   }
 };
+const push = async () => {
+  try {
+    initDirectories();
+    await runCompose(
+      ['push'],
+      { runMode: 'prod' },
+      {},
+      'pushing to AWS ECR...'
+    );
 
+    console.log( chalk.green( `AWS ECR push completed` ) );
+  } catch (error) {
+    console.log(chalk.red(error));
+  }
+};
 const start = async () => {
   try {
     initDirectories();
@@ -243,6 +257,7 @@ module.exports = {
   status,
   build,
   dev,
+  push,
   start,
   stop,
   displayHeader,

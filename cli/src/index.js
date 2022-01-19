@@ -4,6 +4,7 @@ const {
   status,
   dev,
   stop,
+  push,
   start,
   build,
   displayHelp,
