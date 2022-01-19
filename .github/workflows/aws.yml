@@ -62,16 +62,6 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-   
-    - name: Create ECS context
-      id: create-context
-      run: |
-        curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
-        docker context create ecs ecscontext  --from-env
-        docker context use ecscontext
-        echo "context created"
-      shell: bash
-
     - name: Build, tag, and push image to Amazon ECR
       id: run-cli
       env:
@@ -82,7 +72,15 @@ jobs:
         ./mre publish
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
       shell: bash
-
+    - name: Create ECS context
+      id: create-context
+      run: |
+        curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
+        docker context create ecs ecscontext  --from-env
+        docker context use ecscontext
+        echo "context created"
+      shell: bash
+      
    # - name: Build, tag, and push image to Amazon ECR
    #  id: build-image
    #   env:
