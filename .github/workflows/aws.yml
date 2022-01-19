@@ -62,7 +62,14 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: run mre cli
+    - name: Create ECS context
+      id: create-context
+      run: |
+        docker context create ecs ecscontext
+        docker context use ecscontext
+        echo "context created"
+      
+    - name: Build, tag, and push image to Amazon ECR
       id: run-cli
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -72,6 +79,7 @@ jobs:
         ./mre publish
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
       shell: bash
+
    # - name: Build, tag, and push image to Amazon ECR
    #  id: build-image
    #   env:
