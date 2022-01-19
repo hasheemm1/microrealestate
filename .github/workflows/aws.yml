@@ -63,11 +63,11 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Install Compose
-      uses: ndeloof/install-docker-compose
+      uses: KengoTODA/actions-setup-docker-compose@main
       with:
         version: v2.1.0 # defaults to 'latest'
         legacy: true    # will also install in PATH as `docker-compose`
-        
+
     - name: Create ECS context
       id: create-context
       run: |
