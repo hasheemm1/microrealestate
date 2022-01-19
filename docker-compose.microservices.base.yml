@@ -8,7 +8,7 @@ services:
     expose:
       - "$REDIS_PORT"
     volumes:
-      - "./data/redis:/data"
+      - redis:/data
     command:
       - "bash"
       - "-c"
@@ -183,6 +183,7 @@ services:
 
 volumes:
       mongodata:
+      redis:
       nginix-data:
      
 

@@ -83,7 +83,7 @@ jobs:
         docker context create ecs ecscontext  --from-env
         docker context use ecscontext
          ./mre start
-        echo "context created"
+        echo "container start completed"
       shell: bash
 
    # - name: Build, tag, and push image to Amazon ECR
