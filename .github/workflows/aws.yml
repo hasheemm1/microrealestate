@@ -62,18 +62,15 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Install Compose
-      uses: KengoTODA/actions-setup-docker-compose@main
-      with:
-        version: v2.1.0 # defaults to 'latest'
-       
-
+   
     - name: Create ECS context
       id: create-context
       run: |
+       curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
         docker context create ecs ecscontext
         docker context use ecscontext
         echo "context created"
+      shell: bash
       
     - name: Build, tag, and push image to Amazon ECR
       id: run-cli
