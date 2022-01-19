@@ -73,14 +73,15 @@ jobs:
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
       shell: bash
     - name: Create ECS context
-      id: create-context
+      id: Start Containers
       run: |
         curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
         docker context create ecs ecscontext  --from-env
         docker context use ecscontext
+         ./mre start
         echo "context created"
       shell: bash
-      
+
    # - name: Build, tag, and push image to Amazon ECR
    #  id: build-image
    #   env:
