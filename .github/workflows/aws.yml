@@ -72,8 +72,9 @@ jobs:
         ./mre publish
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
       shell: bash
-    - name: Create ECS context
-      id: Start Containers
+
+    - name: Start Containers
+      id: start-containers
       run: |
         curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
         docker context create ecs ecscontext  --from-env
