@@ -85,12 +85,14 @@ const runCompose = async (
   waitLog = ''
 ) => {
   const prodComposeArgs = [
+    'compose',
     '-f',
     'docker-compose.microservices.base.yml',
     '-f',
     'docker-compose.microservices.prod.yml',
   ];
   const devComposeArgs = [
+    'compose',
     '-f',
     'docker-compose.microservices.base.yml',
     '-f',
@@ -101,7 +103,7 @@ const runCompose = async (
 
   loadEnv(composeOptions.wd, composeOptions.runMode);
   await runCommand(
-    'docker-compose',
+    'docker',
     [
       ...(composeOptions.runMode === 'prod' ? prodComposeArgs : devComposeArgs),
       ...composeCmd,
