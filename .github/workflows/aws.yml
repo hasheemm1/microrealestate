@@ -82,7 +82,7 @@ jobs:
         curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
         docker context create ecs ecscontext  --from-env
         docker context use ecscontext
-         ./mre up
+         ./mre start
         echo "context created"
       shell: bash
 
