@@ -44,6 +44,9 @@ const Main = async () => {
       await stop();
       await build();
       break;
+    case 'publish':
+        await build();
+        break;
     case 'start':
       await start();
       break;

@@ -70,7 +70,7 @@ jobs:
       run: |
         chmod +x ./mre
         ./mre build
-        echo "mre cli completed"
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
       shell: bash
    # - name: Build, tag, and push image to Amazon ECR
    #  id: build-image
