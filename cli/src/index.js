@@ -26,7 +26,7 @@ const Main = async () => {
   displayHeader();
 
   if (
-    !['build', 'start', 'stop', 'dev', 'status', 'config'].includes(command)
+    !['build', 'publish','start', 'stop', 'dev', 'status', 'config'].includes(command)
   ) {
     return displayHelp();
   }
