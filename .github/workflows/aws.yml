@@ -75,14 +75,14 @@ jobs:
 
     - name: Start Containers
       id: start-containers
-       env:
+      env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
         curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
         docker context create ecs ecscontext  --from-env
         docker context use ecscontext
-        docker compose up
+         ./mre up
         echo "context created"
       shell: bash
 
