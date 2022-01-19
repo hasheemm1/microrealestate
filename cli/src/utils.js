@@ -101,7 +101,7 @@ const runCompose = async (
 
   loadEnv(composeOptions.wd, composeOptions.runMode);
   await runCommand(
-    'docker-compose',
+    'docker compose',
     [
       ...(composeOptions.runMode === 'prod' ? prodComposeArgs : devComposeArgs),
       ...composeCmd,
