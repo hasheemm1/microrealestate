@@ -27,7 +27,7 @@ const displayHeader = () => {
       'The application which helps the landlords to manage their property rents'
     )
   );
-  console.log('');
+  console.log(' ');
 };
 
 const build = async () => {
