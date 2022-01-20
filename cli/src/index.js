@@ -48,8 +48,9 @@ const Main = async () => {
     case 'publish':
         await build();
         await push();
-        await new Promise(resolve => setTimeout(resolve, 60000));
         console.log('waiting for 1 minute... for repo to be ready');
+        await new Promise(resolve => setTimeout(resolve, 60000));
+      
         break;
     case 'start':
       await start();
