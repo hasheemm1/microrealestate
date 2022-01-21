@@ -51,9 +51,9 @@ services:
       - "envsubst '$${NGINX_PORT},$${API_PORT},$${AUTHENTICATOR_PORT},$${FRONTEND_PORT},$${PDFGENERATOR_PORT},$${RESETSERVICE_PORT}' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && cat /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
     networks:
       - net
-    depends_on:
-      - frontend
-      - authenticator
+   # depends_on:
+    #  - frontend
+    #  - authenticator
   ###############################################################################
   # Authenticator
   ###############################################################################
@@ -74,10 +74,10 @@ services:
       - "$AUTHENTICATOR_PORT"
     networks:
       - net
-    depends_on:
-      - redis
-      - mongo
-      - emailer
+   # depends_on:
+    #  - redis
+   #   - mongo
+    #  - emailer
   ###############################################################################
   # PDFGenerator
   ###############################################################################
@@ -96,7 +96,7 @@ services:
     networks:
       - net
     depends_on:
-      - mongo
+    #  - mongo
   ###############################################################################
   # Emailer
   ###############################################################################
@@ -123,8 +123,8 @@ services:
     networks:
       - net
     depends_on:
-      - mongo
-      - pdfgenerator
+    #  - mongo
+     # - pdfgenerator
   ###############################################################################
   # api
   ###############################################################################
@@ -146,9 +146,9 @@ services:
       - "$API_PORT"
     networks:
       - net
-    depends_on:
-      - mongo
-      - emailer
+    #depends_on:
+      #- mongo
+     # - emailer
       - pdfgenerator
   ###############################################################################
   # Frontend
@@ -174,9 +174,9 @@ services:
       - "host.docker.internal:host-gateway"
     networks:
       - net
-    depends_on:
-      - api
-      - authenticator
+    #depends_on:
+      #- api
+     # - authenticator
 ###############################################################################
 # microservices network
 ###############################################################################
