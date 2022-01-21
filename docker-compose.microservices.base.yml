@@ -28,13 +28,17 @@ services:
     networks:
       - net
       
-   
+  ###############################################################################
+  # NGINX-CONFIG
+  ###############################################################################
+  nginxsidecar:
+    volumes:
+      - nginix-data:/etc/nginx/conf.d
+  
   ###############################################################################
   # NGINX
   ###############################################################################
   nginx:
-    build:
-      dockerfile: Dockerfile.nginx
     volumes:
       - nginix-data:/etc/nginx/conf.d
     ports:
@@ -52,6 +56,7 @@ services:
     networks:
       - net
     depends_on:
+      - nginx-config
       - frontend
       - authenticator
   ###############################################################################
