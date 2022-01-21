@@ -185,11 +185,7 @@ volumes:
       mongodata:
       redis:
       nginix-data:
-        driver: 'local'
-        driver_opts:
-          type: 'none'
-          o: 'bind'
-          device: './config/nginx/etc/conf.d/prod.conf'
+      
      
 
 networks:
