@@ -185,8 +185,7 @@ volumes:
       mongodata:
       redis:
       nginix-data:
-      
-     
+
 
 networks:
   net:
