@@ -9,7 +9,7 @@ services:
       - "$REDIS_PORT"
     volumes:
       - redis:/data
-    command:
+    #command:
      # - "bash"
      # - "-c"
      # - "docker-entrypoint.sh --requirepass $AUTHENTICATOR_TOKEN_DB_PASSWORD"
