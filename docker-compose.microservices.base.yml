@@ -10,9 +10,9 @@ services:
     volumes:
       - redis:/data
     command:
-      - "bash"
-      - "-c"
-      - "docker-entrypoint.sh --requirepass $AUTHENTICATOR_TOKEN_DB_PASSWORD"
+     # - "bash"
+     # - "-c"
+     # - "docker-entrypoint.sh --requirepass $AUTHENTICATOR_TOKEN_DB_PASSWORD"
     networks:
       - net
   ###############################################################################
