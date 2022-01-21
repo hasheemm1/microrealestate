@@ -56,7 +56,7 @@ services:
     networks:
       - net
     depends_on:
-      - nginx-config
+      - nginxsidecar
       - frontend
       - authenticator
   ###############################################################################
