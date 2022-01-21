@@ -9,6 +9,8 @@ services:
       - "$REDIS_PORT"
     volumes:
       - redis:/data
+    environment:
+        - REDIS_PASSWORD=$AUTHENTICATOR_TOKEN_DB_PASSWORD
     #command:
      # - "bash"
      # - "-c"
