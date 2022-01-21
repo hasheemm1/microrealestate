@@ -12,7 +12,7 @@ services:
   #     #   syslog-facility: 'daemon'
   #   depends_on:
   #     - kibana
-  redis: 
+  redis:
     image: public.ecr.aws/ubuntu/redis:latest
     ###############################################################################
     # Mongo
@@ -30,38 +30,66 @@ services:
     image: public.ecr.aws/docker/library/mongo:latest
   ###############################################################################
 
+
+
   # NGINX
+
+
 
   ###############################################################################
 
+
+
   # nginx:
+
+
 
   #   logging:
 
+
+
   #     driver: 'syslog'
+
+
 
   #     options:
 
+
+
   #       syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
+
+
 
   #       tag: '{{.Name}}/{{.ID}}'
 
+
+
   #     #   syslog-facility: 'daemon'
+
+
 
   #   depends_on:
 
+
+
   #     - kibana
-  
+
+
   nginxsidecar:
+    image: $ECR_REGISTRY/$ECR_REPOSITORY:nginxsidecar
     build:
       context: .
       dockerfile: services/nginxsidecar/Dockerfile
-  
+
   nginx:
     image: public.ecr.aws/nginx/nginx:latest
   ###############################################################################
 
+
+
   # Authenticator
+
+
 
   ###############################################################################
   authenticator:
