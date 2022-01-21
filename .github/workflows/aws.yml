@@ -62,16 +62,16 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build, tag, and push image to Amazon ECR
-      id: run-cli
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        chmod +x ./mre
-        ./mre publish
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-      shell: bash
+    #- name: Build, tag, and push image to Amazon ECR
+    #  id: run-cli
+    #  env:
+    #    ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+    #    IMAGE_TAG: ${{ github.sha }}
+    #  run: |
+    #    chmod +x ./mre
+    #    ./mre publish
+    #    echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+    #  shell: bash
 
     - name: Start Containers
       id: start-containers
