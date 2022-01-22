@@ -63,7 +63,7 @@ const start = async () => {
   try {
     initDirectories();
     await runCompose(
-      ['up'],
+      ['up','-d'],
       { runMode: 'prod' },
       {},
       'starting the application...'
