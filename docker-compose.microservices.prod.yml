@@ -75,11 +75,11 @@ services:
   #     - kibana
 
 
-  nginxsidecar:
-    image: $ECR_REGISTRY/$ECR_REPOSITORY:nginxsidecar
-    build:
-      context: .
-      dockerfile: services/nginxsidecar/Dockerfile
+  # nginxsidecar:
+    # image: $ECR_REGISTRY/$ECR_REPOSITORY:nginxsidecar
+    # build:
+      # context: .
+      # dockerfile: services/nginxsidecar/Dockerfile
 
   nginx:
     image: public.ecr.aws/nginx/nginx:latest
