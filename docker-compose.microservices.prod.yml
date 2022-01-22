@@ -1,78 +1,78 @@
 version: "3.3"
 services:
-  ###############################################################################
-  # Redis
-  ###############################################################################
+  # ###############################################################################
+  # # Redis
+  # ###############################################################################
+  # # redis:
+  # #   logging:
+  # #     driver: 'syslog'
+  # #     options:
+  # #       syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
+  # #       tag: '{{.Name}}/{{.ID}}'
+  # #     #   syslog-facility: 'daemon'
+  # #   depends_on:
+  # #     - kibana
   # redis:
-  #   logging:
-  #     driver: 'syslog'
-  #     options:
-  #       syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
-  #       tag: '{{.Name}}/{{.ID}}'
-  #     #   syslog-facility: 'daemon'
-  #   depends_on:
-  #     - kibana
-  redis:
-    image: public.ecr.aws/ubuntu/redis:latest
-    ###############################################################################
-    # Mongo
-    ###############################################################################
-    # mongo:
-    #   logging:
-    #     driver: 'syslog'
-    #     options:
-    #       syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
-    #       tag: '{{.Name}}/{{.ID}}'
-    #     #   syslog-facility: 'daemon'
-    #   depends_on:
-    #     - kibana
-  mongo:
-    image: public.ecr.aws/docker/library/mongo:latest
-  ###############################################################################
+    # image: public.ecr.aws/ubuntu/redis:latest
+    # ###############################################################################
+    # # Mongo
+    # ###############################################################################
+    # # mongo:
+    # #   logging:
+    # #     driver: 'syslog'
+    # #     options:
+    # #       syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
+    # #       tag: '{{.Name}}/{{.ID}}'
+    # #     #   syslog-facility: 'daemon'
+    # #   depends_on:
+    # #     - kibana
+  # mongo:
+    # image: public.ecr.aws/docker/library/mongo:latest
+  # ###############################################################################
 
 
 
-  # NGINX
+  # # NGINX
 
 
 
-  ###############################################################################
+  # ###############################################################################
 
 
 
-  # nginx:
+  # # nginx:
 
 
 
-  #   logging:
+  # #   logging:
 
 
 
-  #     driver: 'syslog'
+  # #     driver: 'syslog'
 
 
 
-  #     options:
+  # #     options:
 
 
 
-  #       syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
+  # #       syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
 
 
 
-  #       tag: '{{.Name}}/{{.ID}}'
+  # #       tag: '{{.Name}}/{{.ID}}'
 
 
 
-  #     #   syslog-facility: 'daemon'
+  # #     #   syslog-facility: 'daemon'
 
 
 
-  #   depends_on:
+  # #   depends_on:
 
 
 
-  #     - kibana
+  # #     - kibana
 
 
   nginxsidecar:
@@ -81,86 +81,86 @@ services:
       context: .
       dockerfile: services/nginxsidecar/Dockerfile
 
-  nginx:
-    image: public.ecr.aws/nginx/nginx:latest
-  ###############################################################################
+  # nginx:
+    # image: public.ecr.aws/nginx/nginx:latest
+  # ###############################################################################
 
 
 
-  # Authenticator
+  # # Authenticator
 
 
 
-  ###############################################################################
-  authenticator:
-    image: $ECR_REGISTRY/$ECR_REPOSITORY:authenticator
-    build:
-      context: .
-      dockerfile: services/authenticator/Dockerfile
-    # logging:
-    #   driver: syslog
-    #   options:
-    #     syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
-    #     tag: '{{.Name}}/{{.ID}}'
-    # depends_on:
-    #   - kibana
-    ###############################################################################
-    # PDFGenerator
-    ###############################################################################
-  pdfgenerator:
-    image: $ECR_REGISTRY/$ECR_REPOSITORY:pdfgenerator
-    build:
-      context: .
-      dockerfile: services/pdfgenerator/Dockerfile
-    # logging:
-    #   driver: syslog
-    #   options:
-    #     syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
-    #     tag: '{{.Name}}/{{.ID}}'
-    # depends_on:
-    #   - kibana
-    ###############################################################################
-    # Emailer
-    ###############################################################################
-  emailer:
-    image: $ECR_REGISTRY/$ECR_REPOSITORY:emailer
-    build:
-      context: .
-      dockerfile: services/emailer/Dockerfile
-    # logging:
-    #   driver: syslog
-    #   options:
-    #     syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
-    #     tag: '{{.Name}}/{{.ID}}'
-    # depends_on:
-    #   - kibana
-    ###############################################################################
-    # api
-    ###############################################################################
-  api:
-    image: $ECR_REGISTRY/$ECR_REPOSITORY:api
-    build:
-      context: .
-      dockerfile: services/api/Dockerfile
-    # logging:
-    #   driver: syslog
-    #   options:
-    #     syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
-    #     tag: '{{.Name}}/{{.ID}}'
-    # depends_on:
-    #   - kibana
-    ###############################################################################
-    # Frontend
-    ###############################################################################
-  frontend:
-    image: $ECR_REGISTRY/$ECR_REPOSITORY:frontend
-    build:
-      context: .
-      dockerfile: webapps/landlord/Dockerfile
-    # logging:
-    #   driver: syslog
-    #   options:
-    #     syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
-    #     tag: '{{.Name}}/{{.ID}}'
-    # depends_on:
-    #   - kibana
+  # ###############################################################################
+  # authenticator:
+    # image: $ECR_REGISTRY/$ECR_REPOSITORY:authenticator
+    # build:
+      # context: .
+      # dockerfile: services/authenticator/Dockerfile
+    # # logging:
+    # #   driver: syslog
+    # #   options:
+    # #     syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
+    # #     tag: '{{.Name}}/{{.ID}}'
+    # # depends_on:
+    # #   - kibana
+    # ###############################################################################
+    # # PDFGenerator
+    # ###############################################################################
+  # pdfgenerator:
+    # image: $ECR_REGISTRY/$ECR_REPOSITORY:pdfgenerator
+    # build:
+      # context: .
+      # dockerfile: services/pdfgenerator/Dockerfile
+    # # logging:
+    # #   driver: syslog
+    # #   options:
+    # #     syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
+    # #     tag: '{{.Name}}/{{.ID}}'
+    # # depends_on:
+    # #   - kibana
+    # ###############################################################################
+    # # Emailer
+    # ###############################################################################
+  # emailer:
+    # image: $ECR_REGISTRY/$ECR_REPOSITORY:emailer
+    # build:
+      # context: .
+      # dockerfile: services/emailer/Dockerfile
+    # # logging:
+    # #   driver: syslog
+    # #   options:
+    # #     syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
+    # #     tag: '{{.Name}}/{{.ID}}'
+    # # depends_on:
+    # #   - kibana
+    # ###############################################################################
+    # # api
+    # ###############################################################################
+  # api:
+    # image: $ECR_REGISTRY/$ECR_REPOSITORY:api
+    # build:
+      # context: .
+      # dockerfile: services/api/Dockerfile
+    # # logging:
+    # #   driver: syslog
+    # #   options:
+    # #     syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
+    # #     tag: '{{.Name}}/{{.ID}}'
+    # # depends_on:
+    # #   - kibana
+    # ###############################################################################
+    # # Frontend
+    # ###############################################################################
+  # frontend:
+    # image: $ECR_REGISTRY/$ECR_REPOSITORY:frontend
+    # build:
+      # context: .
+      # dockerfile: webapps/landlord/Dockerfile
+    # # logging:
+    # #   driver: syslog
+    # #   options:
+    # #     syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
+    # #     tag: '{{.Name}}/{{.ID}}'
+    # # depends_on:
+    # #   - kibana
