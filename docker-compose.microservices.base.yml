@@ -44,6 +44,7 @@ services:
       - nginix-data:/etc/nginx/conf.d
     ports:
       - "$NGINX_PORT:$NGINX_PORT"
+      - "$NGINX_SSL_PORT:$NGINX_SSL_PORT"
     environment:
       - FRONTEND_PORT=$FRONTEND_PORT
       - AUTHENTICATOR_PORT=$AUTHENTICATOR_PORT
@@ -186,6 +187,12 @@ services:
 
 volumes:
       mongodata:
+        driver_opts:
+        backup_policy: ENABLED
+        lifecycle_policy: AFTER_30_DAYS
+        performance_mode: maxIO
+        throughput_mode: provisioned
+        provisioned_throughput: 1024
       redis:
       nginix-data:
 
