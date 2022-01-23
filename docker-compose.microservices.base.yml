@@ -188,11 +188,11 @@ services:
 volumes:
       mongodata:
         driver_opts:
-        backup_policy: ENABLED
-        lifecycle_policy: AFTER_30_DAYS
-        performance_mode: maxIO
-        throughput_mode: provisioned
-        provisioned_throughput: 1024
+            backup_policy: ENABLED
+            lifecycle_policy: AFTER_30_DAYS
+            performance_mode: maxIO
+            throughput_mode: provisioned
+            provisioned_throughput: 1024
       redis:
       nginix-data:
 
