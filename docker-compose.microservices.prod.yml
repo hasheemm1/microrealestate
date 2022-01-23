@@ -50,6 +50,8 @@ services:
   nginx:
     image: public.ecr.aws/nginx/nginx:latest
     environment:
+      Html: |
+       <html><body><h1>Hello world!</h1></body></html>
       NGINX_CONFIG: |
        upstream frontend {
        server frontend:$FRONTEND_PORT;
@@ -89,7 +91,7 @@ services:
          }
        }
     command:
-      /bin/sh -c "echo \"$$NGINX_CONFIG\" > /etc/nginx/conf.d/defaulr.conf; nginx -g \"daemon off;\""
+      /bin/sh -c "echo \"$$Html\" > /etc/nginx/html/index.html; echo \"$$NGINX_CONFIG\" > /etc/nginx/conf.d/defaulr.conf; nginx -g \"daemon off;\""
   ###############################################################################
   # Authenticator
   ###############################################################################
