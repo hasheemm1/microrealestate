@@ -50,7 +50,7 @@ services:
   nginx:
     image: public.ecr.aws/nginx/nginx:latest
     environment:
-      NGINX_CONFIG: |
+      - NGINX_CONFIG: |
        upstream frontend {
        server frontend:$${FRONTEND_PORT};
        }
