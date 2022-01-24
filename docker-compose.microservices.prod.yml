@@ -91,7 +91,7 @@ services:
          }
        }
     command:
-      /bin/sh -c "echo \"$$Html\" > /etc/nginx/html/index.html; echo \"$$NGINX_CONFIG\" > /etc/nginx/conf.d/defaulr.conf; nginx -g \"daemon off;\""
+      /bin/sh -c "echo \"$$Html\" > /etc/nginx/html/index.html; echo \"$$NGINX_CONFIG\" > /etc/nginx/conf.d/default.conf; nginx -g \"daemon off;\""
   ###############################################################################
   # Authenticator
   ###############################################################################
