@@ -92,6 +92,18 @@ const stop = async (runConfig = { runMode: 'prod' }) => {
   }
 };
 
+const down = async (runConfig = { runMode: 'prod' }) => {
+  try {
+    await runCompose(
+      ['down'],
+      { runMode: runConfig.runMode },
+      {},
+      'stopping current running application...'
+    );
+  } catch (error) {
+    console.log(chalk.red(error));
+  }
+};
 const dev = async () => {
   try {
     initDirectories();
@@ -260,6 +272,7 @@ module.exports = {
   push,
   start,
   stop,
+  down,
   displayHeader,
   displayHelp,
   askForEnvironmentVariables,

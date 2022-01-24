@@ -4,6 +4,7 @@ const {
   status,
   dev,
   stop,
+  down,
   push,
   start,
   build,
@@ -27,7 +28,7 @@ const Main = async () => {
   displayHeader();
 
   if (
-    !['build', 'publish','start', 'stop', 'dev', 'status', 'config'].includes(command)
+    !['build', 'publish','start', 'stop','down', 'dev', 'status', 'config'].includes(command)
   ) {
     return displayHelp();
   }
@@ -58,6 +59,9 @@ const Main = async () => {
     case 'stop':
       await stop();
       break;
+      case 'down':
+        await down();
+        break;
     case 'dev':
       await stop({ runMode: 'dev' });
       await dev();
