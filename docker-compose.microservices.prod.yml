@@ -28,73 +28,73 @@ services:
     #     - kibana
   mongo:
     image: public.ecr.aws/docker/library/mongo:latest
-  ###############################################################################
-  # NGINX
-  ###############################################################################
+    ###############################################################################
+    # NGINX
+    ###############################################################################
 
-  # nginx:
-  #   logging:
-  #     driver: 'syslog'
-  #     options:
-  #       syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
-  #       tag: '{{.Name}}/{{.ID}}'
-  #     #   syslog-facility: 'daemon'
-  #   depends_on:
-  #     - kibana
-  # nginxsidecar:
+    # nginx:
+    #   logging:
+    #     driver: 'syslog'
+    #     options:
+    #       syslog-address: 'udp://localhost:$LOGSTASH_UDP_PORT'
+    #       tag: '{{.Name}}/{{.ID}}'
+    #     #   syslog-facility: 'daemon'
+    #   depends_on:
+    #     - kibana
+    # nginxsidecar:
     # image: $ECR_REGISTRY/$ECR_REPOSITORY:nginxsidecar
     # build:
-      # context: .
-      # dockerfile: services/nginxsidecar/Dockerfile
+    # context: .
+    # dockerfile: services/nginxsidecar/Dockerfile
 
   nginx:
     image: public.ecr.aws/nginx/nginx:latest
     environment:
       Html: |
-       <html><body><h1>Hello world!</h1></body></html>
+        <html><body><h1>Hello world!</h1></body></html>
       NGINX_CONFIG: |
-       upstream frontend {
-       server frontend:$FRONTEND_PORT;
-       }
-       upstream api {
-        server api:$API_PORT;
-       }
-       upstream authenticator {
-         server authenticator:$AUTHENTICATOR_PORT;
-       }
-       upstream pdfgenerator {
-         server pdfgenerator:$PDFGENERATOR_PORT;
-       }
-       server {
-         listen $NGINX_PORT;
-         proxy_set_header Host $$http_host;
-         proxy_set_header X-Real-IP $$remote_addr;
-         proxy_set_header X-Forwarded-For $$proxy_add_x_forwarded_for;
-         proxy_set_header X-Forwarded-Proto $$scheme;
-         location /app {
-          proxy_pass http://frontend;
-         }
-         location ^~ /api/v2/ {
-          proxy_pass http://api;
-         }
-         location /api/v2/authenticator {
-          rewrite /api/v2/authenticator/(.*) /$$1  break;
-          proxy_pass http://authenticator;
-         }
-         location /api/v2/templates {
-          rewrite /api/v2/(.*) /pdfgenerator/$$1  break;
-          proxy_pass http://pdfgenerator;
-         }
-         location /api/v2/documents {
-          rewrite /api/v2/(.*) /pdfgenerator/$$1  break;
-          proxy_pass http://pdfgenerator;
-         }
-       }
-    command:
-      /bin/sh -c "echo \"$$Html\" > /etc/nginx/html/index.html; echo \"$$NGINX_CONFIG\" > /etc/nginx/conf.d/default.conf; nginx -g \"daemon off;\""
-  ###############################################################################
-  # Authenticator
-  ###############################################################################
+        upstream frontend {
+        server frontend:$FRONTEND_PORT;
+        }
+        upstream api {
+         server api:$API_PORT;
+        }
+        upstream authenticator {
+          server authenticator:$AUTHENTICATOR_PORT;
+        }
+        upstream pdfgenerator {
+          server pdfgenerator:$PDFGENERATOR_PORT;
+        }
+        server {
+          listen $NGINX_PORT;
+          proxy_set_header Host $$http_host;
+          proxy_set_header X-Real-IP $$remote_addr;
+          proxy_set_header X-Forwarded-For $$proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $$scheme;
+          location /app {
+           proxy_pass http://frontend;
+          }
+          location ^~ /api/v2/ {
+           proxy_pass http://api;
+          }
+          location /api/v2/authenticator {
+           rewrite /api/v2/authenticator/(.*) /$$1  break;
+           proxy_pass http://authenticator;
+          }
+          location /api/v2/templates {
+           rewrite /api/v2/(.*) /pdfgenerator/$$1  break;
+           proxy_pass http://pdfgenerator;
+          }
+          location /api/v2/documents {
+           rewrite /api/v2/(.*) /pdfgenerator/$$1  break;
+           proxy_pass http://pdfgenerator;
+          }
+        }
+    # command: /bin/sh -c "echo \"$$Html\" > /etc/nginx/html/index.html; echo \"$$NGINX_CONFIG\" > /etc/nginx/conf.d/default.conf; nginx -g \"daemon off;\""
+    command: /bin/sh -c "echo \"$$Html\" > /etc/nginx/html/index.html; nginx -g \"daemon off;\""
+    ###############################################################################
+    # AUthenticator
+    ###############################################################################
   authenticator:
     image: $ECR_REGISTRY/$ECR_REPOSITORY:authenticator
     build:

@@ -4,22 +4,15 @@ services:
   #Redis
   ##############################################################################
   redis:
-    
+
     expose:
       - "$REDIS_PORT"
     volumes:
       - redis:/data
     environment:
-        - REDIS_PASSWORD=$AUTHENTICATOR_TOKEN_DB_PASSWORD
-    #command:
-     # - "bash"
-     # - "-c"
-     # - "docker-entrypoint.sh --requirepass $AUTHENTICATOR_TOKEN_DB_PASSWORD"
+      - REDIS_PASSWORD=$AUTHENTICATOR_TOKEN_DB_PASSWORD
     networks:
       - net
-  ###############################################################################
-  # Mongo
-  ###############################################################################
   mongo:
     expose:
       - "$MONGO_PORT"
@@ -27,21 +20,11 @@ services:
       - mongodata:/data/db
     networks:
       - net
-      
-  ##############################################################################
-  #NGINX-CONFIG
-  ##############################################################################
-  # nginxsidecar:
-    # tty: true
-    # volumes:
-      # - nginix-data:/etc/nginx/conf.d
-  
-  ##############################################################################
-  #NGINX
-  ##############################################################################
+
   nginx:
     volumes:
       - nginix-data:/etc/nginx/conf.d
+      - nginix-html:/etc/nginx/html/
     ports:
       - "$NGINX_PORT:$NGINX_PORT"
       - "$NGINX_SSL_PORT:$NGINX_SSL_PORT"
@@ -51,16 +34,13 @@ services:
       - PDFGENERATOR_PORT=$PDFGENERATOR_PORT
       - API_PORT=$API_PORT
       - NGINX_PORT=$NGINX_PORT
-      
+
     networks:
       - net
     depends_on:
-      #- nginxsidecar
       - frontend
       - authenticator
-  ###############################################################################
-  # Authenticator
-  ###############################################################################
+
   authenticator:
     environment:
       - NODE_ENV
@@ -82,9 +62,7 @@ services:
       - redis
       - mongo
       - emailer
-  ###############################################################################
-  # PDFGenerator
-  ###############################################################################
+
   pdfgenerator:
     image: mre/pdfgenerator:latest
     environment:
@@ -101,9 +79,7 @@ services:
       - net
     depends_on:
       - mongo
-  ###############################################################################
-  # Emailer
-  ###############################################################################
+
   emailer:
     environment:
       - NODE_ENV
@@ -129,9 +105,7 @@ services:
     depends_on:
       - mongo
       - pdfgenerator
-  ###############################################################################
-  # api
-  ###############################################################################
+
   api:
     environment:
       - NODE_ENV
@@ -154,14 +128,12 @@ services:
       - mongo
       - emailer
       - pdfgenerator
-  ###############################################################################
-  # Frontend
-  ###############################################################################
+
   frontend:
     build:
       args:
         - BASE_PATH=$BASE_PATH
-    
+
     environment:
       - NODE_ENV
       - PORT=$FRONTEND_PORT
@@ -181,21 +153,18 @@ services:
     depends_on:
       - api
       - authenticator
-###############################################################################
-# microservices network
-###############################################################################
 
 volumes:
-      mongodata:
-        driver_opts:
-            backup_policy: ENABLED
-            lifecycle_policy: AFTER_30_DAYS
-            performance_mode: maxIO
-            throughput_mode: provisioned
-            provisioned_throughput: 1024
-      redis:
-      nginix-data:
-
+  mongodata:
+    driver_opts:
+      backup_policy: ENABLED
+      lifecycle_policy: AFTER_30_DAYS
+      performance_mode: maxIO
+      throughput_mode: provisioned
+      provisioned_throughput: 1024
+  redis:
+  nginix-data:
+  nginix-html:
 
 networks:
   net:
