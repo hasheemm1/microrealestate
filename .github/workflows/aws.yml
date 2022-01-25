@@ -33,33 +33,19 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    # - name: Build, tag, and push image to Amazon ECR
-    #   id: run-cli
-    #   env:
-    #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-    #     IMAGE_TAG: ${{ github.sha }}
-    #   run: |
-    #     chmod +x ./mre
-    #     ./mre publish
-    #     echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-    #   shell: bash
+    - name: Build, tag, and push image to Amazon ECR
+      id: run-cli
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        chmod +x ./mre
+        ./mre publish
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+      shell: bash
 
-    # - name: Start Containers
-    #   id: start-containers
-    #   env:
-    #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-    #     IMAGE_TAG: ${{ github.sha }}
-    #   run: |
-    #     curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
-    #     docker context create ecs ecscontext  --from-env
-    #     docker context use ecscontext
-    #     chmod +x ./mre
-    #     ./mre start
-    #     echo "container start initiated....please wait for serivce stabilisation"
-    #   shell: bash 
-    
-    - name: Stop Containers
-      id: stop-containers
+    - name: Start Containers
+      id: start-containers
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
@@ -68,8 +54,22 @@ jobs:
         docker context create ecs ecscontext  --from-env
         docker context use ecscontext
         chmod +x ./mre
-        ./mre down
-        echo "container stop initiated"
+        ./mre start
+        echo "container start initiated....please wait for serivce stabilisation"
       shell: bash 
+    
+    # - name: Stop Containers
+    #   id: stop-containers
+    #   env:
+    #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+    #     IMAGE_TAG: ${{ github.sha }}
+    #   run: |
+    #     curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
+    #     docker context create ecs ecscontext  --from-env
+    #     docker context use ecscontext
+    #     chmod +x ./mre
+    #     ./mre down
+    #     echo "container stop initiated"
+    #   shell: bash 
 
    
