@@ -1,15 +1,13 @@
 version: "3.3"
 services:
- ###############################################################################
-  # Mongo
-  ###############################################################################
+  redis:
+    image: redis:latest
+
   mongo:
     image: mongo:3.6
     ports:
       - "$MONGO_PORT:$MONGO_PORT"
-  ###############################################################################
-  # NGINX
-  ###############################################################################
+
   nginx:
     image: nginx:1.17
     command:
@@ -18,9 +16,7 @@ services:
       - "envsubst '$${NGINX_PORT},$${API_PORT},$${AUTHENTICATOR_PORT},$${FRONTEND_PORT},$${PDFGENERATOR_PORT},$${RESETSERVICE_PORT}' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && cat /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
     volumes:
       - ./config/nginx/etc/conf.d/dev.conf:/etc/nginx/conf.d/default.template
-  ###############################################################################
-  # Authenticator
-  ###############################################################################
+
   authenticator:
     image: mre/authenticator:latest
     build:
@@ -33,9 +29,7 @@ services:
       - /usr/app/services/authenticator/node_modules
     ports:
       - "$AUTHENTICATOR_DEBUG_PORT:9226"
-  ###############################################################################
-  # PDFGenerator
-  ###############################################################################
+
   pdfgenerator:
     image: mre/pdfgenerator:latest
     build:
@@ -48,9 +42,7 @@ services:
       - /usr/app/services/pdfgenerator/node_modules
     ports:
       - "$PDFGENERATOR_DEBUG_PORT:9227"
-  ###############################################################################
-  # Emailer
-  ###############################################################################
+
   emailer:
     image: mre/emailer:latest
     build:
@@ -63,9 +55,7 @@ services:
       - /usr/app/services/emailer/node_modules
     ports:
       - "$EMAILER_DEBUG_PORT:9228"
-  ###############################################################################
-  # api
-  ###############################################################################
+
   api:
     image: mre/api:latest
     build:
@@ -78,9 +68,7 @@ services:
       - /usr/app/services/api/node_modules
     ports:
       - "$API_DEBUG_PORT:9230"
-  ###############################################################################
-  # Frontend
-  ###############################################################################
+
   frontend:
     image: mre/frontend:latest
     build:
