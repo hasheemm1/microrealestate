@@ -136,6 +136,21 @@ const status = async () => {
     console.log(chalk.red(error));
   }
 };
+const repairmongo = async () => {
+  try {
+    await runCompose(
+      ['run', 'mongo', 'mongod', '--repair'],
+      {
+        runMode: 'prod',
+      },
+      {
+        logErrorsDuringExecution: true,
+      }
+    );
+  } catch (error) {
+    console.log(chalk.red(error));
+  }
+};
 
 const config = async (runMode) => {
   try {
@@ -267,6 +282,7 @@ RESTORE_DB=${restoreDb}
 module.exports = {
   config,
   status,
+  repairmongo,
   build,
   dev,
   push,

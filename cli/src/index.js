@@ -8,6 +8,7 @@ const {
   push,
   start,
   build,
+  repairmongo,
   displayHelp,
   displayHeader,
   askRunMode,
@@ -28,7 +29,7 @@ const Main = async () => {
   displayHeader();
 
   if (
-    !['build', 'publish','start', 'stop','down', 'dev', 'status', 'config'].includes(command)
+    !['build', 'publish','start', 'stop','down', 'dev', 'status', 'repairmongo','config'].includes(command)
   ) {
     return displayHelp();
   }
@@ -68,6 +69,9 @@ const Main = async () => {
       break;
     case 'status':
       await status();
+      break;
+    case 'repairmongo':
+      await repairmongo();
       break;
     case 'config':
       runConfig = await askRunMode();
