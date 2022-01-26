@@ -85,7 +85,7 @@ services:
            rewrite /api/v2/authenticator/(.*) /$$1  break;
            proxy_pass http://authenticator;
           }
-          location /api/v2/templates {
+          location /api/v2/templates { 
            resolver 169.254.169.253
            rewrite /api/v2/(.*) /pdfgenerator/$$1  break;
            proxy_pass http://pdfgenerator;
