@@ -27,7 +27,6 @@ services:
       - nginix-html:/etc/nginx/html/
     ports:
       - "$NGINX_PORT:$NGINX_PORT"
-      #- "$NGINX_SSL_PORT:$NGINX_SSL_PORT"
     environment:
       - FRONTEND_PORT=$FRONTEND_PORT
       - AUTHENTICATOR_PORT=$AUTHENTICATOR_PORT
