@@ -11,7 +11,7 @@ const AccountModel = require('@mre/common/models/account');
 const refreshTokenCookieAttributes = {
   httpOnly: true,
   sameSite: true,
-  secure: config.DOMAIN !== 'localhost',
+  //secure: config.DOMAIN !== 'localhost',
   domain: config.DOMAIN,
 };
 
