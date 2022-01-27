@@ -7,8 +7,6 @@ services:
 
     expose:
       - "$REDIS_PORT"
-    volumes:
-      - redis:/data
     environment:
       - REDIS_PASSWORD=$AUTHENTICATOR_TOKEN_DB_PASSWORD
     networks:
@@ -16,15 +14,10 @@ services:
   mongo:
     expose:
       - "$MONGO_PORT"
-    volumes:
-      - mongodata:/data/db
     networks:
       - net
 
   nginx:
-    volumes:
-      - nginix-data:/etc/nginx/conf.d
-      - nginix-html:/etc/nginx/html/
     ports:
       - "$NGINX_PORT:$NGINX_PORT"
     environment:
@@ -153,18 +146,6 @@ services:
     depends_on:
       - api
       - authenticator
-
-volumes:
-  mongodata:
-    driver_opts:
-      backup_policy: ENABLED
-      lifecycle_policy: AFTER_30_DAYS
-      performance_mode: maxIO
-      throughput_mode: provisioned
-      provisioned_throughput: 1024
-  redis:
-  nginix-data:
-  nginix-html:
 
 networks:
   net:

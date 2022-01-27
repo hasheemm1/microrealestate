@@ -14,6 +14,8 @@ services:
   #     - kibana
   redis:
     image: public.ecr.aws/ubuntu/redis:latest
+    volumes:
+      - redis:/data
     ###############################################################################
     # Mongo
     ###############################################################################
@@ -28,6 +30,8 @@ services:
     #     - kibana
   mongo:
     image: public.ecr.aws/docker/library/mongo:latest
+    volumes:
+      - mongodata:/data/db
     ###############################################################################
     # NGINX
     ###############################################################################
@@ -49,6 +53,9 @@ services:
 
   nginx:
     image: public.ecr.aws/nginx/nginx:latest
+    volumes:
+      - nginix-data:/etc/nginx/conf.d
+      - nginix-html:/etc/nginx/html/
     environment:
 
       Html: |
@@ -172,3 +179,14 @@ services:
     #     tag: '{{.Name}}/{{.ID}}'
     # depends_on:
     #   - kibana
+
+volumes:
+  mongodata:
+    driver_opts:
+      backup_policy: ENABLED
+      performance_mode: maxIO
+      throughput_mode: provisioned
+      provisioned_throughput: 1024
+  redis:
+  nginix-data:
+  nginix-html:
